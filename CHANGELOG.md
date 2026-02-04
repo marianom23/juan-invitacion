@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-02-05
+
 ### Added
 
 - Comprehensive Zod validation schemas in src/server/schemas.js for all API endpoints (23c87eb)
@@ -282,7 +284,8 @@ git show <commit-hash>
 - [Contributing Guide](CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 
-[Unreleased]: https://github.com/mrofisr/sakeenah/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/mrofisr/sakeenah/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/mrofisr/sakeenah/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/mrofisr/sakeenah/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/mrofisr/sakeenah/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/mrofisr/sakeenah/compare/v0.9.0...v1.0.0
