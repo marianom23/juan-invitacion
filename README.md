@@ -2,7 +2,7 @@
 
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
-![Version](https://img.shields.io/badge/version-2.0.0-orange)
+![Version](https://img.shields.io/badge/version-2.1.0-orange)
 
 ## Overview
 
@@ -181,9 +181,11 @@ Sakeenah implements a secure invitation system that protects guest privacy and p
 
 - Wedding UID and guest names stored in localStorage (not visible in URL after initial load)
 - URL automatically cleaned to `https://yourdomain.com` after data extraction
+- **Auto-update**: If guest opens different invitation link, system automatically updates to new wedding/guest
 - 30-day expiration for stored invitation data
 - Meta tags prevent Wayback Machine and search engine archiving
 - No URL injection vulnerabilities
+- Seamless switching between multiple invitations without manual browser data clearing
 
 ### Initial URL Pattern
 
@@ -293,10 +295,19 @@ When guests open their personalized link:
    - Invitation loads with personalized greeting
 
 2. **Subsequent Visits:**
+
    - Guest navigates to: `https://yourdomain.com`
    - Data loads from localStorage automatically
    - No need to click the original link again
    - Works for 30 days from first visit
+
+3. **Multiple Invitations / Auto-Update:**
+   - Guest previously opened Wedding A invitation
+   - Guest receives new link for Wedding B: `https://yourdomain.com/wedding-b?guest=new-name`
+   - System automatically detects different UID or guest name
+   - Updates localStorage with new wedding data
+   - Shows Wedding B invitation (no manual clearing needed)
+   - Console logs the update for debugging
 
 **Features:**
 
@@ -307,10 +318,12 @@ When guests open their personalized link:
 - **No login required**: Seamless experience without authentication
 - **Privacy protected**: Guest data stored locally, not in URL history
 - **Clean URLs**: No sensitive information visible in browser address bar
+- **Auto-switching**: Opening different invitation links automatically updates stored data
 
 **Data Persistence:**
 
 - Invitation data persists for 30 days in browser localStorage
+- Opening a different invitation link automatically updates stored data
 - Clearing browser data will require clicking the original link again
 - Each browser/device maintains separate invitation data
 - No server-side session management required

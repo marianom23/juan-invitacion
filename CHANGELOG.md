@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Spam prevention**: Unique constraint preventing duplicate wishes from same guest name per invitation
 - **Database migration**: Migration script (001-add-unique-wish-constraint.sql) for adding unique wish constraint to existing databases
 - **UX improvement**: Thank you message displayed after successful wish submission preventing re-submission
+- **Auto-update invitations**: System automatically updates localStorage when guest opens different invitation link (0b104ad)
+- **Console logging**: Debug logs when switching between different wedding UIDs or guest names (0b104ad)
 
 ### Changed
 
@@ -26,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced pagination validation with automatic string-to-number transformation (23c87eb)
 - Wish creation endpoint now checks for duplicate submissions before inserting
 - Error messages improved to clearly indicate when a guest has already submitted a wish
+- **Invitation context priority**: URL parameters now take precedence over localStorage for invitation data (0b104ad)
+- **Automatic data override**: Opening new invitation link updates stored wedding UID and guest name (0b104ad)
 - **BREAKING**: All source filenames converted to kebab-case for consistency (4a24aa2)
   - Components: BottomBar.jsx → bottom-bar.jsx, EventsCard.jsx → events-card.jsx, Layout.jsx → layout.jsx
   - Pages: Hero.jsx → hero.jsx, Events.jsx → events.jsx, Wishes.jsx → wishes.jsx, etc.
