@@ -61,7 +61,7 @@ export default function Location() {
           </motion.div>
 
           {/* Location Content */}
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+          <div className="max-w-6xl mx-auto grid md:grid-row-2 gap-8 items-center">
             {/* Map Container */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
