@@ -13,12 +13,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic input sanitization and transformation through Zod middleware (23c87eb)
 - Regex validation for wedding UID format enforcement (lowercase, numbers, hyphens only) (23c87eb)
 - Detailed validation error messages for better debugging and user feedback (23c87eb)
+- Click-outside detection for attendance dropdown in Wishes form for better UX
+- Guest name persistence in Wishes form after submission for improved user experience
 
 ### Changed
 
 - Refactored all API endpoints to use zValidator middleware for type-safe request validation (23c87eb)
 - Replaced manual validation code with declarative Zod schemas across invitation and wishes endpoints (23c87eb)
 - Enhanced pagination validation with automatic string-to-number transformation (23c87eb)
+
+### Fixed
+
+- **CRITICAL**: Fixed dynamic Tailwind class generation in Hero.jsx FloatingHearts component that would fail at build time (Hero.jsx:89-95)
+- **CRITICAL**: Fixed SSR crash caused by accessing window.innerWidth before component mount in Hero.jsx (Hero.jsx:71)
+- **CRITICAL**: Fixed invalid CSS grid class `md:grid-row-2` to `md:grid-cols-2` in Location.jsx (Location.jsx:56)
+- Fixed missing `calculateTimeLeft` function in useEffect dependency array causing stale closure in Hero.jsx countdown timer (Hero.jsx:41)
+- Fixed misleading helper text in Wishes form that showed "detected from invitation" for manually typed names (Wishes.jsx:281-286)
+- Fixed attendance dropdown not closing when clicking outside the dropdown area (Wishes.jsx:300-354)
 
 ### Dependencies
 

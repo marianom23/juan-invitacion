@@ -18,8 +18,7 @@ export default function Hero() {
   }, []);
 
   const CountdownTimer = ({ targetDate }) => {
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-    function calculateTimeLeft() {
+    const calculateTimeLeft = () => {
       const difference = +new Date(targetDate) - +new Date();
       let timeLeft = {};
 
@@ -32,7 +31,10 @@ export default function Hero() {
         };
       }
       return timeLeft;
-    }
+    };
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
     useEffect(() => {
       const timer = setInterval(() => {
         setTimeLeft(calculateTimeLeft());
@@ -60,21 +62,37 @@ export default function Hero() {
   };
 
   const FloatingHearts = () => {
+    const [hearts] = useState(() =>
+      [...Array(8)].map((_, i) => ({
+        size: Math.floor(Math.random() * 2) + 8,
+        color:
+          i % 3 === 0
+            ? "text-rose-400"
+            : i % 3 === 1
+              ? "text-pink-400"
+              : "text-red-400",
+        initialX:
+          typeof window !== "undefined" ? Math.random() * window.innerWidth : 0,
+        animateX:
+          typeof window !== "undefined" ? Math.random() * window.innerWidth : 0,
+      })),
+    );
+
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {hearts.map((heart, i) => (
           <motion.div
             key={i}
             initial={{
               opacity: 0,
               scale: 0,
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight,
+              x: heart.initialX,
+              y: typeof window !== "undefined" ? window.innerHeight : 0,
             }}
             animate={{
               opacity: [0, 1, 1, 0],
               scale: [0, 1, 1, 0.5],
-              x: Math.random() * window.innerWidth,
+              x: heart.animateX,
               y: -100,
             }}
             transition={{
@@ -86,13 +104,11 @@ export default function Hero() {
             className="absolute"
           >
             <Heart
-              className={`w-${Math.floor(Math.random() * 2) + 8} h-${Math.floor(Math.random() * 2) + 8} ${
-                i % 3 === 0
-                  ? "text-rose-400"
-                  : i % 3 === 1
-                    ? "text-pink-400"
-                    : "text-red-400"
-              }`}
+              className={heart.color}
+              style={{
+                width: `${heart.size * 4}px`,
+                height: `${heart.size * 4}px`,
+              }}
               fill="currentColor"
             />
           </motion.div>

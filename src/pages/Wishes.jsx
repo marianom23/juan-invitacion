@@ -13,7 +13,7 @@ import {
   HelpCircle,
   Loader2,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatEventDate } from "@/lib/formatEventDate";
 import { useInvitation } from "@/context/InvitationContext";
@@ -28,14 +28,34 @@ export default function Wishes() {
   const [guestName, setGuestName] = useState("");
   const [attendance, setAttendance] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const [isNameFromInvitation, setIsNameFromInvitation] = useState(false);
 
   // Get guest name from localStorage
   useEffect(() => {
     const storedGuestName = getGuestName();
     if (storedGuestName) {
       setGuestName(storedGuestName);
+      setIsNameFromInvitation(true);
     }
   }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   const options = [
     { value: "ATTENDING", label: "Ya, saya akan hadir" },
@@ -71,9 +91,8 @@ export default function Wishes() {
           response.data,
           ...old,
         ]);
-        // Reset form
+        // Reset form (keep guest name)
         setNewWish("");
-        setGuestName("");
         setAttendance("");
         // Show confetti
         setShowConfetti(true);
@@ -274,11 +293,14 @@ export default function Wishes() {
                       type="text"
                       placeholder="Masukan nama kamu..."
                       value={guestName}
-                      onChange={(e) => setGuestName(e.target.value)}
+                      onChange={(e) => {
+                        setGuestName(e.target.value);
+                        setIsNameFromInvitation(false);
+                      }}
                       className="w-full px-4 py-2.5 rounded-xl bg-white/50 border border-rose-100 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50 transition-all duration-200 text-gray-700 placeholder-gray-400"
                       required
                     />
-                    {guestName && (
+                    {isNameFromInvitation && guestName && (
                       <p className="text-xs text-gray-500 italic">
                         Terdeteksi dari undangan Anda. Anda dapat mengubahnya
                         jika perlu.
@@ -290,6 +312,7 @@ export default function Wishes() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                     className="space-y-2 relative"
+                    ref={dropdownRef}
                   >
                     <div className="flex items-center space-x-2 text-gray-500 text-sm mb-1">
                       <Calendar className="w-4 h-4" />
