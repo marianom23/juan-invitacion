@@ -33,6 +33,7 @@ export default function Wishes() {
   const [isNameFromInvitation, setIsNameFromInvitation] = useState(false);
   const [hasSubmittedWish, setHasSubmittedWish] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectedWish, setSelectedWish] = useState(null);
 
   // Get guest name from localStorage
   useEffect(() => {
@@ -255,7 +256,10 @@ export default function Wishes() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ delay: index * 0.1 }}
-                      className="group relative w-[300px] h-[160px] flex-shrink-0"
+                      className="group relative w-[300px] h-[160px] flex-shrink-0 cursor-pointer"
+                      onClick={() => setSelectedWish(wish)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       {/* Background gradient */}
                       <div className="absolute inset-0 bg-gradient-to-br from-rose-100/60 to-pink-100/60 rounded-2xl transform transition-transform group-hover:scale-[1.02] duration-300" />
@@ -313,6 +317,105 @@ export default function Wishes() {
               </AnimatePresence>
             )}
           </div>
+
+          {/* Wish Detail Modal */}
+          <AnimatePresence>
+            {selectedWish && (
+              <>
+                {/* Backdrop */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setSelectedWish(null)}
+                  className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                >
+                  {/* Modal Card */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+                  >
+                    {/* Modal Header */}
+                    <div className="sticky top-0 bg-gradient-to-br from-rose-50 to-pink-50 p-6 border-b border-rose-100">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-4">
+                          {/* Avatar */}
+                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-white text-2xl font-semibold shadow-lg">
+                            {selectedWish.name[0].toUpperCase()}
+                          </div>
+
+                          {/* Name and Time */}
+                          <div>
+                            <h3 className="text-2xl font-serif text-gray-800 font-semibold">
+                              {selectedWish.name}
+                            </h3>
+                            <div className="flex items-center space-x-2 text-gray-500 text-sm mt-1">
+                              <Clock className="w-4 h-4" />
+                              <time>
+                                {formatEventDate(
+                                  selectedWish.created_at,
+                                  "long",
+                                  true,
+                                )}
+                              </time>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Close Button */}
+                        <button
+                          onClick={() => setSelectedWish(null)}
+                          className="p-2 rounded-full hover:bg-white/50 transition-colors"
+                          aria-label="Close"
+                        >
+                          <XCircle className="w-6 h-6 text-gray-400 hover:text-gray-600" />
+                        </button>
+                      </div>
+
+                      {/* Attendance Badge */}
+                      {selectedWish.attendance && (
+                        <div className="mt-4 flex items-center space-x-2">
+                          {getAttendanceIcon(selectedWish.attendance)}
+                          <span className="text-sm font-medium text-gray-700">
+                            {selectedWish.attendance === "ATTENDING" &&
+                              "Akan hadir"}
+                            {selectedWish.attendance === "NOT_ATTENDING" &&
+                              "Tidak bisa hadir"}
+                            {selectedWish.attendance === "MAYBE" &&
+                              "Mungkin hadir"}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Modal Body - Full Message */}
+                    <div className="p-6">
+                      <div className="prose prose-gray max-w-none">
+                        <p className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap">
+                          {selectedWish.message}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Modal Footer */}
+                    <div className="sticky bottom-0 bg-gray-50 p-4 border-t border-gray-100 flex justify-end">
+                      <button
+                        onClick={() => setSelectedWish(null)}
+                        className="px-6 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-medium transition-colors"
+                      >
+                        Tutup
+                      </button>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+
           {/* Wishes Form */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
