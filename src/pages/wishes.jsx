@@ -366,15 +366,6 @@ export default function Wishes() {
                         }`}
                         required
                       />
-                      {isNameFromInvitation && guestName && (
-                        <p className="text-xs text-emerald-600 italic flex items-center space-x-1">
-                          <CheckCircle className="w-3 h-3" />
-                          <span>
-                            Nama terdeteksi dari undangan Anda dan tidak dapat
-                            diubah untuk mencegah pesan palsu.
-                          </span>
-                        </p>
-                      )}
                     </div>
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
