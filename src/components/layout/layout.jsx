@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
         wasPlayingRef.current = true;
         setShowToast(true);
         setTimeout(() => setShowToast(false), 3000);
-      } catch (error) {
+      } catch {
         console.log("Autoplay failed, waiting for user interaction");
         // Add click event listener for first interaction
         const handleFirstInteraction = async () => {

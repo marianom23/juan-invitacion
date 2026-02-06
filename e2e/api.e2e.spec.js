@@ -10,7 +10,7 @@
  * 3. Run: bun run test:e2e
  */
 
-import { describe, it, expect, vi, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import app from "../src/server/index.js";
 
 // Mock database for E2E tests
@@ -270,8 +270,6 @@ describe("E2E: Sakeenah API", () => {
       const res = await app.request("/api/e2e-test-wedding/wishes/999", {
         method: "DELETE",
       });
-
-      const json = await res.json();
 
       expect(res.status).toBe(404);
     });

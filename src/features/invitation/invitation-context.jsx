@@ -33,7 +33,6 @@ const InvitationContext = createContext(null);
  *   <App />
  * </InvitationProvider>
  */
-// eslint-disable-next-line react/prop-types
 export function InvitationProvider({ children }) {
   const location = useLocation();
   const navigate = useNavigate();

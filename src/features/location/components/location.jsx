@@ -1,12 +1,5 @@
 import { useConfig } from "@/features/invitation/hooks/use-config";
-import {
-  Clock,
-  Navigation as NavigationIcon,
-  MapPin,
-  CalendarCheck,
-  Phone,
-  ExternalLink,
-} from "lucide-react";
+import { Clock, MapPin, CalendarCheck, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { formatEventDate } from "@/lib/format-event-date";
 

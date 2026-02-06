@@ -5,12 +5,7 @@
 
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import {
-  createWishSchema,
-  wishesQuerySchema,
-  uidParamSchema,
-  wishIdParamSchema,
-} from "../../schemas.js";
+import { createWishSchema, wishesQuerySchema } from "../../schemas.js";
 import { getDbClient } from "../../lib/db-client.js";
 
 const wishesRoutes = new Hono();
