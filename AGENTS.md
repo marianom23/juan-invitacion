@@ -2,6 +2,77 @@
 
 Guidelines for AI coding agents working in this repository.
 
+## Pre-Task Mandatory Check
+
+**IMPORTANT: Before executing ANY task, agents MUST review the `.agent/` directory:**
+
+### 1. `.agent/rules/` - Mandatory Implementations
+
+These rules are **mandatory** and must be followed for all implementations:
+
+| Rule File | Purpose |
+|-----------|---------|
+| `rugged-software-constitution.md` | Core software quality principles |
+| `core-design-principles.md` | Fundamental design guidelines |
+| `error-handling-principles.md` | Error handling requirements |
+| `security-principles.md` | Security requirements |
+| `security-mandate.md` | Security enforcement rules |
+| `testing-strategy.md` | Testing requirements |
+| `api-design-principles.md` | API design standards |
+| `code-organization-principles.md` | Code structure requirements |
+| `code-idioms-and-conventions.md` | Coding conventions |
+| `code-completion-mandate.md` | Code completion requirements |
+| `project-structure.md` | Project organization rules |
+| `architectural-pattern.md` | Architecture guidelines |
+| `avoid-circular-dependencies.md` | Dependency rules |
+| `dependency-management-principles.md` | Package management |
+| `configuration-management-principles.md` | Config handling |
+| `logging-and-observability-principles.md` | Logging standards |
+| `logging-and-observability-mandate.md` | Logging enforcement |
+| `documentation-principles.md` | Documentation standards |
+| `documentation-update-mandate.md` | Documentation requirements |
+| `concurrency-and-threading-principles.md` | Async/concurrency rules |
+| `concurrency-and-threading-mandate.md` | Concurrency enforcement |
+| `performance-optimization-principles.md` | Performance guidelines |
+| `resources-and-memory-management-principles.md` | Resource management |
+| `data-serialization-and-interchange-principles.md` | Data handling |
+| `command-execution-principles.md` | Command execution rules |
+
+### 2. `.agent/skills/` - Additional Implementation Resources
+
+These skills provide **additional techniques and patterns** to enhance implementation quality:
+
+| Skill | Purpose |
+|-------|---------|
+| `sequential-thinking/SKILL.md` | Structured problem-solving approach |
+| `frontend-design/SKILL.md` | Frontend design patterns and practices |
+| `debugging-protocol/SKILL.md` | Systematic debugging methodology |
+
+### 3. `.agent/workflows/` - Agent-Decided Implementation Workflows
+
+These workflows are **optional** - agents decide when to apply them based on task complexity:
+
+| Workflow | Purpose |
+|----------|---------|
+| `orchestrator.md` | Main workflow orchestration |
+| `1-research.md` | Research phase workflow |
+| `2-implement.md` | Implementation phase workflow |
+| `3-integrate.md` | Integration phase workflow |
+| `4-verify.md` | Verification phase workflow |
+| `5-commit.md` | Commit phase workflow |
+| `e2e-test.md` | End-to-end testing workflow |
+
+### Pre-Task Checklist
+
+Before starting any task:
+
+1. [ ] Review relevant rules in `.agent/rules/` for the task type
+2. [ ] Check if any skills in `.agent/skills/` apply to the task
+3. [ ] Consider if a structured workflow from `.agent/workflows/` would help
+4. [ ] Ensure understanding of mandatory principles before writing code
+
+---
+
 ## Project Overview
 
 Modern Islamic wedding invitation platform:
