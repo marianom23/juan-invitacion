@@ -1,259 +1,326 @@
-import { Calendar, Clock, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useConfig } from "@/features/invitation/hooks/use-config";
-import { formatEventDate } from "@/lib/format-event-date";
+import { useState, useEffect, useCallback } from "react";
+import { useConfig } from "../hooks/use-config";
 import { getGuestName } from "@/lib/invitation-storage";
 
+const FloatingHearts = () => {
+  const [hearts] = useState(() =>
+    [...Array(20)].map((_, i) => ({
+      size: Math.floor(Math.random() * 20) + 15,
+      color:
+        i % 3 === 0
+          ? "text-emerald-200"
+          : i % 3 === 1
+            ? "text-pink-200"
+            : "text-emerald-100",
+      initialX: Math.random() * 100,
+      duration: Math.random() * 8 + 7,
+      delay: Math.random() * 10,
+      rotation: Math.random() * 360,
+    })),
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {hearts.map((heart, i) => (
+        <motion.div
+          key={i}
+          initial={{
+            opacity: 0,
+            scale: 0,
+            left: `${heart.initialX}%`,
+            bottom: "-10%",
+          }}
+          animate={{
+            opacity: [0, 0.8, 0.8, 0], // Increased opacity
+            scale: [0.5, 1, 1, 0.5],
+            bottom: ["-10%", "110%"],
+            x: [0, 50, -50, 0],
+            rotate: [heart.rotation, heart.rotation + 360],
+          }}
+          transition={{
+            duration: heart.duration,
+            repeat: Infinity,
+            delay: heart.delay,
+            ease: "linear",
+          }}
+          className="absolute"
+        >
+          <Heart
+            className={heart.color}
+            style={{
+              width: `${heart.size}px`,
+              height: `${heart.size}px`,
+            }}
+            fill="currentColor"
+          />
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
 export default function Hero() {
-  const config = useConfig(); // Use hook to get config from API or fallback to static
+  const config = useConfig();
   const [guestName, setGuestName] = useState("");
+  const [timeTogether, setTimeTogether] = useState({
+    years: 0,
+    months: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  const calculateTimeTogether = useCallback(() => {
+    if (!config.anniversaryDate) return;
+
+    const start = new Date(config.anniversaryDate);
+    const now = new Date();
+
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    let days = now.getDate() - start.getDate();
+    let hours = now.getHours() - start.getHours();
+    let minutes = now.getMinutes() - start.getMinutes();
+    let seconds = now.getSeconds() - start.getSeconds();
+
+    if (seconds < 0) {
+      minutes--;
+      seconds += 60;
+    }
+    if (minutes < 0) {
+      hours--;
+      minutes += 60;
+    }
+    if (hours < 0) {
+      days--;
+      hours += 24;
+    }
+    if (days < 0) {
+      months--;
+      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+      days += prevMonth.getDate();
+    }
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    setTimeTogether({ years, months, days, hours, minutes, seconds });
+  }, [config.anniversaryDate]);
 
   useEffect(() => {
-    // Get guest name from localStorage
+    calculateTimeTogether();
+    const timer = setInterval(calculateTimeTogether, 1000);
+    return () => clearInterval(timer);
+  }, [calculateTimeTogether]);
+
+  useEffect(() => {
     const storedGuestName = getGuestName();
     if (storedGuestName) {
       setGuestName(storedGuestName);
     }
   }, []);
 
-  const CountdownTimer = ({ targetDate }) => {
-    const calculateTimeLeft = () => {
-      const difference = +new Date(targetDate) - +new Date();
-      let timeLeft = {};
-
-      if (difference > 0) {
-        timeLeft = {
-          hari: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          jam: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          menit: Math.floor((difference / 1000 / 60) % 60),
-          detik: Math.floor((difference / 1000) % 60),
-        };
-      }
-      return timeLeft;
-    };
-
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-    useEffect(() => {
-      const timer = setInterval(() => {
-        setTimeLeft(calculateTimeLeft());
-      }, 1000);
-      return () => clearInterval(timer);
-    }, [targetDate]);
-
-    return (
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-        {Object.keys(timeLeft).map((interval) => (
-          <motion.div
-            key={interval}
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="flex flex-col items-center p-3 bg-white/80 backdrop-blur-sm rounded-xl border border-rose-100"
-          >
-            <span className="text-xl sm:text-2xl font-bold text-rose-600">
-              {timeLeft[interval]}
-            </span>
-            <span className="text-xs text-gray-500 capitalize">{interval}</span>
-          </motion.div>
-        ))}
-      </div>
-    );
-  };
-
-  const FloatingHearts = () => {
-    const [hearts] = useState(() =>
-      [...Array(8)].map((_, i) => ({
-        size: Math.floor(Math.random() * 2) + 8,
-        color:
-          i % 3 === 0
-            ? "text-rose-400"
-            : i % 3 === 1
-              ? "text-pink-400"
-              : "text-red-400",
-        initialX:
-          typeof window !== "undefined" ? Math.random() * window.innerWidth : 0,
-        animateX:
-          typeof window !== "undefined" ? Math.random() * window.innerWidth : 0,
-      })),
-    );
-
-    return (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {hearts.map((heart, i) => (
-          <motion.div
-            key={i}
-            initial={{
-              opacity: 0,
-              scale: 0,
-              x: heart.initialX,
-              y: typeof window !== "undefined" ? window.innerHeight : 0,
-            }}
-            animate={{
-              opacity: [0, 1, 1, 0],
-              scale: [0, 1, 1, 0.5],
-              x: heart.animateX,
-              y: -100,
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.8,
-              ease: "easeOut",
-            }}
-            className="absolute"
-          >
-            <Heart
-              className={heart.color}
-              style={{
-                width: `${heart.size * 4}px`,
-                height: `${heart.size * 4}px`,
-              }}
-              fill="currentColor"
-            />
-          </motion.div>
-        ))}
-      </div>
-    );
-  };
-
   return (
     <>
       <section
         id="home"
-        className="min-h-screen flex flex-col items-center justify-center px-4 py-16 sm:py-20 text-center relative overflow-hidden"
+        className="min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-12 text-center relative overflow-hidden bg-transparent"
       >
+        {/* Flipped Flower Decoration at Top */}
+        <div className="absolute top-0 left-0 w-full h-40 sm:h-56 z-0 pointer-events-none opacity-90 overflow-hidden flex items-start justify-center">
+          <img
+            src="/images/png-flower-top.png"
+            alt=""
+            className="w-full h-full object-cover object-top transform scale-y-[-1] scale-110"
+          />
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6 relative z-10"
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="space-y-6 sm:space-y-10 relative z-10 w-full max-w-lg mx-auto"
         >
+          {/* Top Label */}
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="inline-block mx-auto"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
           >
-            <span className="px-4 py-1 text-sm bg-rose-50 text-rose-600 rounded-full border border-rose-200">
-              Catat Tanggal Penting Ini
+            <span className="px-6 py-2 text-xs sm:text-sm tracking-widest uppercase bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100 shadow-sm">
+              Guarda esta Fecha Importante
             </span>
           </motion.div>
 
-          <div className="space-y-4">
-            <motion.p
+          <div className="space-y-4 sm:space-y-6">
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-gray-500 font-light italic text-base sm:text-lg"
-            >
-              InsyaAllah Kami Akan Menikah
-            </motion.p>
-            <motion.h2
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-3xl sm:text-5xl font-serif bg-clip-text text-transparent bg-gradient-to-r from-rose-600 to-pink-600"
+              className="space-y-3"
             >
-              {config.groomName} & {config.brideName}
-            </motion.h2>
+              <div className="text-gray-500 font-serif italic text-lg sm:text-xl tracking-wide max-w-md mx-auto leading-relaxed">
+                <span>Después de {timeTogether.years} años, </span>
+                <span>{timeTogether.months} meses, </span>
+                <span>{timeTogether.days} días, </span>
+                <span className="inline-block min-w-[3ch]">
+                  {timeTogether.hours} hr,{" "}
+                </span>
+                <span className="inline-block min-w-[3ch] text-emerald-800 font-medium">
+                  {" "}
+                  {timeTogether.minutes} min{" "}
+                </span>
+                <span className="text-gray-400 mx-1">y </span>
+                <span className="inline-block min-w-[3ch] text-emerald-700 font-bold tabular-nums">
+                  {timeTogether.seconds} seg
+                </span>
+              </div>
+              <p className="text-emerald-800 font-serif italic text-2xl sm:text-3xl tracking-widest uppercase">
+                ¡Nos Casamos!
+              </p>
+              <div className="w-16 h-px bg-emerald-200/50 mx-auto mt-4" />
+            </motion.div>
+
+            <div className="relative py-12 flex items-center justify-center">
+              {/* Circular Frame Enveloping the Names */}
+              <div
+                className="absolute inset-x-0 inset-y-0 z-0 opacity-80 pointer-events-none bg-contain bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
+                style={{
+                  backgroundImage: `url('/images/circular.png')`,
+                  scale: "1.4",
+                }}
+              />
+
+              <motion.h2
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+                className="text-5xl sm:text-7xl font-cursive text-emerald-900 drop-shadow-sm flex flex-wrap items-center justify-center gap-x-2 py-4 relative z-10"
+              >
+                <span>{config.groomName}</span>
+                <span className="text-emerald-700 font-script text-4xl sm:text-5xl mx-2">
+                  &
+                </span>
+                <span>{config.brideName}</span>
+              </motion.h2>
+            </div>
           </div>
 
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="relative max-w-md mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="space-y-6"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-rose-50/50 to-white/50 backdrop-blur-md rounded-2xl" />
+            {/* Structured Date Layout */}
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.3 }}
+                className="text-emerald-900 font-serif uppercase tracking-[0.4em] text-sm sm:text-base font-bold"
+              >
+                {new Date(config.date + "T12:00:00")
+                  .toLocaleDateString("es-ES", { month: "long" })
+                  .toUpperCase()}
+              </motion.div>
 
-            <div className="relative px-4 sm:px-8 py-8 sm:py-10 rounded-2xl border border-rose-100/50">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-px">
-                <div className="w-20 sm:w-32 h-[2px] bg-gradient-to-r from-transparent via-rose-200 to-transparent" />
-              </div>
-
-              <div className="space-y-6 text-center">
-                <div className="space-y-3">
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.9 }}
-                    className="flex items-center justify-center space-x-2"
-                  >
-                    <Calendar className="w-4 h-4 text-rose-400" />
-                    <span className="text-gray-700 font-medium text-sm sm:text-base">
-                      {formatEventDate(config.date, "full")}
-                    </span>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1 }}
-                    className="flex items-center justify-center space-x-2"
-                  >
-                    <Clock className="w-4 h-4 text-rose-400" />
-                    <span className="text-gray-700 font-medium text-sm sm:text-base">
-                      {config.time}
-                    </span>
-                  </motion.div>
-                </div>
-
-                <div className="flex items-center justify-center gap-3">
-                  <div className="h-px w-8 sm:w-12 bg-rose-200/50" />
-                  <div className="w-2 h-2 rounded-full bg-rose-200" />
-                  <div className="h-px w-8 sm:w-12 bg-rose-200/50" />
-                </div>
-
+              <div className="flex items-center justify-center gap-6 sm:gap-12">
+                {/* Day of week with lines */}
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.1 }}
-                  className="space-y-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.4 }}
+                  className="flex flex-col items-center"
                 >
-                  <p className="text-gray-500 font-serif italic text-sm">
-                    Kepada Yth.
-                  </p>
-                  <p className="text-gray-600 font-medium text-sm">
-                    Bapak/Ibu/Saudara/i
-                  </p>
-                  <p className="text-rose-500 font-semibold text-lg">
-                    {guestName || "Tamu Undangan"}
-                  </p>
+                  <div className="w-full h-[1px] bg-emerald-200/50" />
+                  <span className="py-2 text-gray-600 font-serif uppercase tracking-[0.2em] text-[10px] sm:text-xs min-w-[80px] sm:min-w-[100px]">
+                    {new Date(config.date + "T12:00:00")
+                      .toLocaleDateString("es-ES", { weekday: "long" })
+                      .toUpperCase()}
+                  </span>
+                  <div className="w-full h-[1px] bg-emerald-200/50" />
+                </motion.div>
+
+                {/* Day of month */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.4, type: "spring" }}
+                  className="text-5xl sm:text-7xl font-serif text-gray-800 px-2"
+                >
+                  {new Date(config.date + "T12:00:00").getDate()}
+                </motion.div>
+
+                {/* Time with lines */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.4 }}
+                  className="flex flex-col items-center"
+                >
+                  <div className="h-px w-20 bg-emerald-200/50 mb-4" />
+                  <span className="text-gray-500 font-serif tracking-widest uppercase text-[10px] sm:text-sm whitespace-nowrap px-2">
+                    A LAS {config.time}
+                  </span>
+                  <div className="h-px w-20 bg-emerald-200/50 mt-4" />
                 </motion.div>
               </div>
 
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-px">
-                <div className="w-20 sm:w-32 h-[2px] bg-gradient-to-r from-transparent via-rose-200 to-transparent" />
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5 }}
+                className="text-emerald-500 font-serif tracking-[0.6em] text-base sm:text-xl"
+              >
+                {new Date(config.date + "T12:00:00").getFullYear()}
+              </motion.div>
             </div>
 
-            <div className="absolute -top-2 -right-2 w-16 sm:w-24 h-16 sm:h-24 bg-rose-100/20 rounded-full blur-xl" />
-            <div className="absolute -bottom-2 -left-2 w-16 sm:w-24 h-16 sm:h-24 bg-rose-100/20 rounded-full blur-xl" />
+            {/* Guest Welcome Area */}
+            <div className="pt-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.5 }}
+                className="inline-block px-10 py-8 rounded-3xl bg-emerald-50/50 border border-emerald-100 shadow-sm"
+              >
+                <p className="text-gray-500 font-serif italic text-sm mb-3">
+                  Estimado/a
+                </p>
+                <p className="text-3xl sm:text-4xl font-serif text-emerald-800 font-bold">
+                  {guestName || "Invitado Especial"}
+                </p>
+              </motion.div>
+            </div>
           </motion.div>
 
-          <CountdownTimer targetDate={config.date} />
-
-          <div className="pt-6 relative">
-            <FloatingHearts />
+          <div className="pt-8 relative">
             <motion.div
               animate={{
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0],
+                y: [0, -10, 0],
+                opacity: [0.6, 1, 0.6],
               }}
               transition={{
-                duration: 2,
+                duration: 3,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             >
               <Heart
-                className="w-10 sm:w-12 h-10 sm:h-12 text-rose-500 mx-auto"
+                className="w-12 h-12 text-emerald-600 mx-auto"
                 fill="currentColor"
               />
             </motion.div>
           </div>
         </motion.div>
+
+        {/* Floating Hearts background layer */}
+        <FloatingHearts />
       </section>
     </>
   );

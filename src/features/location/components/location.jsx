@@ -9,7 +9,10 @@ export default function Location() {
   return (
     <>
       {/* Location section */}
-      <section id="location" className="min-h-screen relative overflow-hidden">
+      <section
+        id="location"
+        className="min-h-screen relative overflow-hidden bg-transparent"
+      >
         <div className="container mx-auto px-4 py-20 relative z-10">
           {/* Section Header */}
           <motion.div
@@ -24,9 +27,9 @@ export default function Location() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               viewport={{ once: true }}
-              className="inline-block text-rose-500 font-medium"
+              className="inline-block text-emerald-500 font-medium"
             >
-              Lokasi Acara
+              Ubicación del Evento
             </motion.span>
 
             <motion.h2
@@ -36,7 +39,7 @@ export default function Location() {
               viewport={{ once: true }}
               className="text-4xl md:text-5xl font-serif text-gray-800"
             >
-              Lokasi
+              Ubicación
             </motion.h2>
 
             {/* Decorative Divider */}
@@ -47,83 +50,90 @@ export default function Location() {
               viewport={{ once: true }}
               className="flex items-center justify-center gap-4 pt-4"
             >
-              <div className="h-[1px] w-12 bg-rose-200" />
-              <MapPin className="w-5 h-5 text-rose-400" />
-              <div className="h-[1px] w-12 bg-rose-200" />
+              <div className="h-[1px] w-12 bg-emerald-200" />
+              <MapPin className="w-5 h-5 text-emerald-600" />
+              <div className="h-[1px] w-12 bg-emerald-200" />
             </motion.div>
           </motion.div>
 
           {/* Location Content */}
-          <div className="max-w-6xl mx-auto grid md:grid-row-2 gap-8 items-center">
-            {/* Map Container */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="w-full h-[400px] rounded-2xl overflow-hidden shadow-lg border-8 border-white"
-            >
-              <iframe
-                src={config.maps_embed}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full"
-              ></iframe>
-            </motion.div>
+          <div className="space-y-24 max-w-3xl mx-auto">
+            {config.venues.map((venue, index) => (
+              <div key={index} className="flex flex-col gap-8">
+                {/* Venue Details */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="space-y-6"
+                >
+                  <div className="bg-white/70 backdrop-blur-md rounded-2xl p-8 shadow-sm border border-emerald-50/50">
+                    <span className="text-emerald-500 font-medium text-sm mb-2 block uppercase tracking-wider">
+                      {venue.name}
+                    </span>
+                    <h3 className="text-2xl font-serif text-gray-800 mb-6">
+                      {venue.location}
+                    </h3>
 
-            {/* Venue Details */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                <h3 className="text-2xl font-serif text-gray-800 mb-6">
-                  {config.location}
-                </h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start space-x-4">
+                        <MapPin className="w-5 h-5 text-emerald-500 mt-1" />
+                        <p className="text-gray-600 flex-1">{venue.address}</p>
+                      </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-4">
-                    <MapPin className="w-5 h-5 text-rose-500 mt-1" />
-                    <p className="text-gray-600 flex-1">{config.address}</p>
+                      <div className="flex items-center space-x-4">
+                        <CalendarCheck className="w-5 h-5 text-emerald-500" />
+                        <p className="text-gray-600">
+                          {formatEventDate(config.date)}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center space-x-4">
+                        <Clock className="w-5 h-5 text-emerald-500" />
+                        <p className="text-gray-600">{venue.time}</p>
+                      </div>
+
+                      {/* Action Button - Full Width */}
+                      <div className="pt-4">
+                        <motion.a
+                          href={venue.maps_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          viewport={{ once: true }}
+                          className="w-full flex items-center justify-center gap-1.5 bg-white text-gray-600 px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors text-sm"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span className="font-semibold">Ver Mapa</span>
+                        </motion.a>
+                      </div>
+                    </div>
                   </div>
+                </motion.div>
 
-                  <div className="flex items-center space-x-4">
-                    <CalendarCheck className="w-5 h-5 text-rose-500" />
-                    <p className="text-gray-600">
-                      {formatEventDate(config.date)}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <Clock className="w-5 h-5 text-rose-500" />
-                    <p className="text-gray-600">{config.time}</p>
-                  </div>
-
-                  {/* Action Button - Full Width */}
-                  <div className="pt-4">
-                    <motion.a
-                      href={config.maps_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      viewport={{ once: true }}
-                      className="w-full flex items-center justify-center gap-1.5 bg-white text-gray-600 px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors text-sm"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      <span className="font-semibold">View Map</span>
-                    </motion.a>
-                  </div>
-                </div>
+                {/* Map Container */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-lg border-8 border-white"
+                >
+                  <iframe
+                    src={venue.maps_embed}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-full"
+                  ></iframe>
+                </motion.div>
               </div>
-            </motion.div>
+            ))}
           </div>
         </div>
       </section>

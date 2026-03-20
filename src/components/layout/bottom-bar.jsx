@@ -12,17 +12,17 @@ import { cn } from "@/lib/utils";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 
 const baseMenuItems = [
-  { icon: Home, label: "Beranda", href: "#home", id: "home" },
-  { icon: CalendarHeart, label: "Event", href: "#event", id: "event" },
-  { icon: MapPin, label: "Lokasi", href: "#location", id: "location" },
+  { icon: Home, label: "Inicio", href: "#home", id: "home" },
+  { icon: CalendarHeart, label: "Evento", href: "#event", id: "event" },
+  { icon: MapPin, label: "Ubicación", href: "#location", id: "location" },
   {
     icon: Gift,
-    label: "Hadiah",
+    label: "Regalos",
     href: "#gifts",
     id: "gifts",
     requiresBanks: true,
   },
-  { icon: MessageCircleHeart, label: "Harapan", href: "#wishes", id: "wishes" },
+  { icon: MessageCircleHeart, label: "Deseos", href: "#wishes", id: "wishes" },
 ];
 
 /**
@@ -148,7 +148,7 @@ const BottomBar = () => {
                     className={cn(
                       "h-[18px] w-[18px] sm:h-5 sm:w-5 mb-0.5 sm:mb-1 transition-all duration-300",
                       active === item.id
-                        ? "stroke-rose-500 stroke-[2.5px]"
+                        ? "stroke-emerald-500 stroke-[2.5px]"
                         : "stroke-gray-600 stroke-2",
                     )}
                   />
@@ -157,7 +157,7 @@ const BottomBar = () => {
                   className={cn(
                     "text-[10px] sm:text-xs font-medium transition-all duration-300 line-clamp-1",
                     active === item.id
-                      ? "text-rose-500 font-semibold"
+                      ? "text-emerald-500 font-semibold"
                       : "text-gray-600",
                   )}
                   animate={{

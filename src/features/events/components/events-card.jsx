@@ -1,6 +1,6 @@
 // EventCard.jsx
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Calendar,
   Clock,
@@ -9,9 +9,9 @@ import {
   X,
   Chrome,
   Apple,
-  Calendar as CalendarIcon
-} from 'lucide-react';
-import { formatEventDate } from '@/lib/format-event-date';
+  Calendar as CalendarIcon,
+} from "lucide-react";
+import { formatEventDate } from "@/lib/format-event-date";
 
 const Modal = ({ isOpen, onClose, children }) => {
   return (
@@ -31,7 +31,7 @@ const Modal = ({ isOpen, onClose, children }) => {
             exit={{ opacity: 0, y: 20 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] w-[90%] max-w-sm"
           >
-            <div className="bg-white transform -translate-x-1/2 -translate-y-1/2 rounded-2xl p-6 shadow-2xl border border-gray-100">
+            <div className="bg-white/70 backdrop-blur-md transform -translate-x-1/2 -translate-y-1/2 rounded-2xl p-6 shadow-2xl border border-emerald-50/50">
               {children}
             </div>
           </motion.div>
@@ -54,7 +54,7 @@ const CalendarButton = ({ icon: Icon, label, onClick, className = "" }) => (
 );
 
 /**
- * SingleEventCard component displays an event card with options to add the event 
+ * SingleEventCard component displays an event card with options to add the event
  * to various calendars (Google Calendar, Apple Calendar, and Outlook Calendar).
  *
  * @component
@@ -91,7 +91,7 @@ const SingleEventCard = ({ eventData }) => {
     const endDate = new Date(`${eventData.date}T${eventData.endTime}:00`);
 
     const formatDate = (date) => {
-      return date.toISOString().replace(/-|:|\.\d+/g, '');
+      return date.toISOString().replace(/-|:|\.\d+/g, "");
     };
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventData.title)}&dates=${formatDate(startDate)}/${formatDate(endDate)}&details=${encodeURIComponent(eventData.description)}&location=${encodeURIComponent(eventData.location)}&ctz=${eventData.timeZone}`;
@@ -102,7 +102,7 @@ const SingleEventCard = ({ eventData }) => {
     const endDate = new Date(`${eventData.date}T${eventData.endTime}:00`);
 
     const formatICSDate = (date) => {
-      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+      return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
     };
 
     return `BEGIN:VCALENDAR
@@ -120,10 +120,12 @@ END:VCALENDAR`;
 
   const downloadICSFile = () => {
     const icsContent = generateICSContent();
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const link = document.createElement('a');
+    const blob = new Blob([icsContent], {
+      type: "text/calendar;charset=utf-8",
+    });
+    const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `${eventData.title.toLowerCase().replace(/ /g, '-')}.ics`;
+    link.download = `${eventData.title.toLowerCase().replace(/ /g, "-")}.ics`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -132,17 +134,19 @@ END:VCALENDAR`;
   return (
     <div className="relative">
       <motion.div
-        className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4"
+        className="bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-emerald-50/50 space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-800">{eventData.title.split(' - ')[0]}</h3>
+          <h3 className="text-xl font-semibold text-gray-800">
+            {eventData.title.split(" - ")[0]}
+          </h3>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-rose-500 hover:text-rose-600 transition-colors"
+            className="text-emerald-500 hover:text-emerald-800 transition-colors"
             onClick={() => setShowCalendarModal(true)}
           >
             <CalendarPlus className="w-5 h-5" />
@@ -150,15 +154,18 @@ END:VCALENDAR`;
         </div>
         <div className="space-y-3 text-gray-600">
           <div className="flex items-center space-x-3">
-            <Calendar className="w-5 h-5 text-rose-500" />
+            <Calendar className="w-5 h-5 text-emerald-500" />
             <span>{formatEventDate(eventData.date)}</span>
           </div>
           <div className="flex items-center space-x-3">
-            <Clock className="w-5 h-5 text-rose-500" />
-            <span>{eventData.startTime?.substring(0, 5) || eventData.startTime} - {eventData.endTime?.substring(0, 5) || eventData.endTime} WIB</span>
+            <Clock className="w-5 h-5 text-emerald-500" />
+            <span>
+              {eventData.startTime?.substring(0, 5) || eventData.startTime} -{" "}
+              {eventData.endTime?.substring(0, 5) || eventData.endTime} hs
+            </span>
           </div>
           <div className="flex items-center space-x-3">
-            <MapPin className="w-5 h-5 text-rose-500" />
+            <MapPin className="w-5 h-5 text-emerald-500" />
             <span>{eventData.location}</span>
           </div>
         </div>
@@ -170,7 +177,9 @@ END:VCALENDAR`;
       >
         <div className="space-y-6 ">
           <div className="flex justify-between  items-center">
-            <h3 className="text-xl font-semibold text-gray-800">Add to Calendar</h3>
+            <h3 className="text-xl font-semibold text-gray-800">
+              Añadir al Calendario
+            </h3>
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -183,19 +192,25 @@ END:VCALENDAR`;
 
           <div className="space-y-3">
             <CalendarButton
-              icon={(props) => <Chrome {...props} className="w-5 h-5 text-rose-500" />}
+              icon={(props) => (
+                <Chrome {...props} className="w-5 h-5 text-emerald-500" />
+              )}
               label="Google Calendar"
-              onClick={() => window.open(googleCalendarLink(), '_blank')}
+              onClick={() => window.open(googleCalendarLink(), "_blank")}
             />
 
             <CalendarButton
-              icon={(props) => <Apple {...props} className="w-5 h-5 text-gray-900" />}
+              icon={(props) => (
+                <Apple {...props} className="w-5 h-5 text-gray-900" />
+              )}
               label="Apple Calendar"
               onClick={downloadICSFile}
             />
 
             <CalendarButton
-              icon={(props) => <CalendarIcon {...props} className="w-5 h-5 text-blue-600" />}
+              icon={(props) => (
+                <CalendarIcon {...props} className="w-5 h-5 text-blue-600" />
+              )}
               label="Outlook Calendar"
               onClick={downloadICSFile}
             />
@@ -209,7 +224,7 @@ END:VCALENDAR`;
 // Main EventCards component that handles multiple events
 const EventCards = ({ events }) => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {events.map((event, index) => (
         <SingleEventCard key={index} eventData={event} />
       ))}

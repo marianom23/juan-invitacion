@@ -81,9 +81,9 @@ export default function Wishes() {
   }, [isOpen]);
 
   const options = [
-    { value: "ATTENDING", label: "Ya, saya akan hadir" },
-    { value: "NOT_ATTENDING", label: "Tidak, saya tidak bisa hadir" },
-    { value: "MAYBE", label: "Mungkin, saya akan konfirmasi nanti" },
+    { value: "ATTENDING", label: "Sí, asistiré" },
+    { value: "NOT_ATTENDING", label: "No, no podré asistir" },
+    { value: "MAYBE", label: "Tal vez, confirmaré más tarde" },
   ];
 
   // Fetch wishes using React Query
@@ -135,7 +135,9 @@ export default function Wishes() {
         setHasSubmittedWish(true);
         setErrorMessage("");
       } else {
-        setErrorMessage("Gagal mengirim pesan. Silakan coba lagi.");
+        setErrorMessage(
+          "Hubo un error al enviar el mensaje. Por favor intenta de nuevo.",
+        );
         // Auto-hide error after 5 seconds
         setTimeout(() => setErrorMessage(""), 5000);
       }
@@ -147,7 +149,7 @@ export default function Wishes() {
     if (!newWish.trim() || !guestName.trim()) return;
 
     if (!uid) {
-      setErrorMessage("Undangan tidak ditemukan. Silakan periksa URL Anda.");
+      setErrorMessage("Invitación no encontrada. Por favor revisa tu URL.");
       setTimeout(() => setErrorMessage(""), 5000);
       return;
     }
@@ -168,7 +170,7 @@ export default function Wishes() {
         return <CheckCircle className="w-4 h-4 text-emerald-500" />;
       case "not_attending":
       case "not-attending":
-        return <XCircle className="w-4 h-4 text-rose-500" />;
+        return <XCircle className="w-4 h-4 text-emerald-500" />;
       case "maybe":
         return <HelpCircle className="w-4 h-4 text-amber-500" />;
       default:
@@ -177,7 +179,10 @@ export default function Wishes() {
   };
   return (
     <>
-      <section id="wishes" className="min-h-screen relative overflow-hidden">
+      <section
+        id="wishes"
+        className="min-h-screen relative overflow-hidden bg-transparent"
+      >
         {showConfetti && <Confetti recycle={false} numberOfPieces={200} />}
         <div className="container mx-auto px-4 py-20 relative z-10">
           {/* Section Header */}
@@ -191,9 +196,9 @@ export default function Wishes() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-block text-rose-500 font-medium"
+              className="inline-block text-emerald-500 font-medium"
             >
-              Kirimkan Doa dan Harapan Terbaik Anda
+              Envía tus mejores deseos y oraciones
             </motion.span>
 
             <motion.h2
@@ -202,7 +207,7 @@ export default function Wishes() {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-serif text-gray-800"
             >
-              Pesan dan Doa
+              Mensajes y Deseos
             </motion.h2>
 
             {/* Decorative Divider */}
@@ -212,9 +217,9 @@ export default function Wishes() {
               transition={{ delay: 0.4 }}
               className="flex items-center justify-center gap-4 pt-4"
             >
-              <div className="h-[1px] w-12 bg-rose-200" />
-              <MessageCircle className="w-5 h-5 text-rose-400" />
-              <div className="h-[1px] w-12 bg-rose-200" />
+              <div className="h-[1px] w-12 bg-emerald-200" />
+              <MessageCircle className="w-5 h-5 text-emerald-600" />
+              <div className="h-[1px] w-12 bg-emerald-200" />
             </motion.div>
           </motion.div>
 
@@ -222,14 +227,14 @@ export default function Wishes() {
           <div className="max-w-2xl mx-auto space-y-6">
             {isLoading && (
               <div className="flex justify-center items-center py-12">
-                <Loader2 className="w-8 h-8 text-rose-500 animate-spin" />
-                <span className="ml-3 text-gray-600">Memuat pesan...</span>
+                <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+                <span className="ml-3 text-gray-600">Cargando mensajes...</span>
               </div>
             )}
 
             {error && !isLoading && (
               <div className="text-center py-8">
-                <p className="text-rose-600">{error}</p>
+                <p className="text-emerald-800">{error}</p>
               </div>
             )}
 
@@ -237,7 +242,7 @@ export default function Wishes() {
               <div className="text-center py-12">
                 <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-gray-500">
-                  Belum ada pesan. Jadilah yang pertama!
+                  No hay mensajes aún. ¡Sé el primero!
                 </p>
               </div>
             )}
@@ -262,15 +267,15 @@ export default function Wishes() {
                       whileTap={{ scale: 0.98 }}
                     >
                       {/* Background gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-rose-100/60 to-pink-100/60 rounded-2xl transform transition-transform group-hover:scale-[1.02] duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/60 to-pink-100/60 rounded-2xl transform transition-transform group-hover:scale-[1.02] duration-300" />
 
                       {/* Card content */}
-                      <div className="relative h-full backdrop-blur-sm bg-white/90 p-4 rounded-2xl border border-rose-100/50 shadow-md flex flex-col">
+                      <div className="relative h-full backdrop-blur-md bg-white/70 p-4 rounded-2xl border border-emerald-50/40 shadow-md flex flex-col">
                         {/* Header */}
                         <div className="flex items-center space-x-3 mb-3">
                           {/* Avatar */}
                           <div className="flex-shrink-0">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-white text-sm font-semibold shadow-sm">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-600 to-pink-500 flex items-center justify-center text-white text-sm font-semibold shadow-sm">
                               {wish.name[0].toUpperCase()}
                             </div>
                           </div>
@@ -298,8 +303,8 @@ export default function Wishes() {
                           {/* New badge */}
                           {Date.now() - new Date(wish.created_at).getTime() <
                             3600000 && (
-                            <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-rose-100 text-rose-600 text-xs font-medium">
-                              New
+                            <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-medium">
+                              Nuevo
                             </span>
                           )}
                         </div>
@@ -340,11 +345,11 @@ export default function Wishes() {
                     className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
                   >
                     {/* Modal Header */}
-                    <div className="sticky top-0 bg-gradient-to-br from-rose-50 to-pink-50 p-6 border-b border-rose-100">
+                    <div className="sticky top-0 bg-gradient-to-br from-emerald-50 to-pink-50 p-6 border-b border-emerald-100">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
                           {/* Avatar */}
-                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-white text-2xl font-semibold shadow-lg">
+                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-600 to-pink-500 flex items-center justify-center text-white text-2xl font-semibold shadow-lg">
                             {selectedWish.name[0].toUpperCase()}
                           </div>
 
@@ -382,11 +387,11 @@ export default function Wishes() {
                           {getAttendanceIcon(selectedWish.attendance)}
                           <span className="text-sm font-medium text-gray-700">
                             {selectedWish.attendance === "ATTENDING" &&
-                              "Akan hadir"}
+                              "Asistirá"}
                             {selectedWish.attendance === "NOT_ATTENDING" &&
-                              "Tidak bisa hadir"}
+                              "No podrá asistir"}
                             {selectedWish.attendance === "MAYBE" &&
-                              "Mungkin hadir"}
+                              "Quizás asista"}
                           </span>
                         </div>
                       )}
@@ -405,9 +410,9 @@ export default function Wishes() {
                     <div className="sticky bottom-0 bg-gray-50 p-4 border-t border-gray-100 flex justify-end">
                       <button
                         onClick={() => setSelectedWish(null)}
-                        className="px-6 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-medium transition-colors"
+                        className="px-6 py-2 bg-emerald-500 hover:bg-emerald-800 text-white rounded-lg font-medium transition-colors"
                       >
-                        Tutup
+                        Cerrar
                       </button>
                     </div>
                   </motion.div>
@@ -428,20 +433,19 @@ export default function Wishes() {
                 <div className="flex flex-col items-center space-y-4">
                   <CheckCircle className="w-16 h-16 text-emerald-500" />
                   <h3 className="text-2xl font-serif text-gray-800">
-                    Terima Kasih!
+                    ¡Gracias!
                   </h3>
                   <p className="text-gray-600">
-                    Pesan dan doa Anda telah terkirim. Kami sangat menghargai
-                    ucapan Anda.
+                    Tu mensaje ha sido enviado. Apreciamos mucho tus palabras.
                   </p>
                   <p className="text-sm text-gray-500 italic">
-                    Setiap tamu hanya dapat mengirim satu pesan.
+                    Solo se permite enviar un mensaje por invitado.
                   </p>
                 </div>
               </div>
             ) : (
               <form onSubmit={handleSubmitWish} className="relative">
-                <div className="backdrop-blur-sm bg-white/80 p-6 rounded-2xl border border-rose-100/50 shadow-lg">
+                <div className="backdrop-blur-sm bg-white/80 p-6 rounded-2xl border border-emerald-100/50 shadow-lg">
                   {/* Error Message */}
                   <AnimatePresence>
                     {errorMessage && (
@@ -449,9 +453,9 @@ export default function Wishes() {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="mb-4 p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-start space-x-3"
+                        className="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start space-x-3"
                       >
-                        <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
+                        <AlertCircle className="w-5 h-5 text-emerald-800 flex-shrink-0 mt-0.5" />
                         <div className="flex-1">
                           <p className="text-sm text-rose-800 font-medium">
                             {errorMessage}
@@ -460,7 +464,7 @@ export default function Wishes() {
                         <button
                           type="button"
                           onClick={() => setErrorMessage("")}
-                          className="text-rose-400 hover:text-rose-600 transition-colors"
+                          className="text-emerald-600 hover:text-emerald-800 transition-colors"
                         >
                           <XCircle className="w-4 h-4" />
                         </button>
@@ -473,14 +477,14 @@ export default function Wishes() {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-gray-500 text-sm mb-1">
                         <User className="w-4 h-4" />
-                        <label htmlFor="guest-name">Nama Kamu</label>
+                        <label htmlFor="guest-name">Tu Nombre</label>
                       </div>
                       <input
                         type="text"
                         id="guest-name"
                         name="guestName"
                         autoComplete="name"
-                        placeholder="Masukan nama kamu..."
+                        placeholder="Ingresa tu nombre..."
                         value={guestName}
                         onChange={(e) => {
                           setGuestName(e.target.value);
@@ -490,7 +494,7 @@ export default function Wishes() {
                         className={`w-full px-4 py-2.5 rounded-xl border transition-all duration-200 text-gray-700 placeholder-gray-400 ${
                           isNameFromInvitation
                             ? "bg-gray-100 border-gray-200 cursor-not-allowed opacity-75"
-                            : "bg-white/50 border-rose-100 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50"
+                            : "bg-white/50 border-emerald-100 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
                         }`}
                         required
                       />
@@ -504,9 +508,7 @@ export default function Wishes() {
                     >
                       <div className="flex items-center space-x-2 text-gray-500 text-sm mb-1">
                         <Calendar className="w-4 h-4" />
-                        <label htmlFor="attendance-select">
-                          Apakah kamu hadir?
-                        </label>
+                        <label htmlFor="attendance-select">¿Asistirás?</label>
                       </div>
 
                       {/* Hidden select for accessibility */}
@@ -518,7 +520,7 @@ export default function Wishes() {
                         className="sr-only"
                         aria-hidden="true"
                       >
-                        <option value="">Pilih kehadiran...</option>
+                        <option value="">Selecciona tu asistencia...</option>
                         {options.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}
@@ -530,10 +532,10 @@ export default function Wishes() {
                       <button
                         type="button"
                         onClick={() => setIsOpen(!isOpen)}
-                        aria-label="Pilih status kehadiran"
+                        aria-label="Selecciona estado de asistencia"
                         aria-expanded={isOpen}
                         aria-controls="attendance-dropdown"
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/50 border border-rose-100 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50 transition-all duration-200 text-left flex items-center justify-between"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/50 border border-emerald-100 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 transition-all duration-200 text-left flex items-center justify-between"
                       >
                         <span
                           className={
@@ -543,7 +545,7 @@ export default function Wishes() {
                           {attendance
                             ? options.find((opt) => opt.value === attendance)
                                 ?.label
-                            : "Pilih kehadiran..."}
+                            : "Selecciona tu asistencia..."}
                         </span>
                         <ChevronDown
                           className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
@@ -561,7 +563,7 @@ export default function Wishes() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="absolute z-10 w-full mt-1 bg-white rounded-xl shadow-lg border border-rose-100 overflow-hidden"
+                            className="absolute z-10 w-full mt-1 bg-white rounded-xl shadow-lg border border-emerald-100 overflow-hidden"
                           >
                             {options.map((option) => (
                               <motion.button
@@ -577,8 +579,8 @@ export default function Wishes() {
                                 className={`w-full px-4 py-2.5 text-left transition-colors
                                         ${
                                           attendance === option.value
-                                            ? "bg-rose-50 text-rose-600"
-                                            : "text-gray-700 hover:bg-rose-50"
+                                            ? "bg-emerald-50 text-emerald-800"
+                                            : "text-gray-700 hover:bg-emerald-50"
                                         }`}
                               >
                                 {option.label}
@@ -592,15 +594,15 @@ export default function Wishes() {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-gray-500 text-sm mb-1">
                         <MessageCircle className="w-4 h-4" />
-                        <label htmlFor="wish-message">Harapan kamu</label>
+                        <label htmlFor="wish-message">Tus deseos</label>
                       </div>
                       <textarea
                         id="wish-message"
                         name="message"
-                        placeholder="Kirimkan harapan dan doa untuk kedua mempelai..."
+                        placeholder="Escribe tus deseos u oraciones para los novios..."
                         value={newWish}
                         onChange={(e) => setNewWish(e.target.value)}
-                        className="w-full h-32 p-4 rounded-xl bg-white/50 border border-rose-100 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50 resize-none transition-all duration-200"
+                        className="w-full h-32 p-4 rounded-xl bg-white/50 border border-emerald-100 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 resize-none transition-all duration-200"
                         required
                       />
                     </div>
@@ -619,7 +621,7 @@ export default function Wishes() {
                     ${
                       createWishMutation.isPending
                         ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-rose-500 hover:bg-rose-600"
+                        : "bg-emerald-500 hover:bg-emerald-800"
                     }`}
                     >
                       {createWishMutation.isPending ? (
@@ -629,8 +631,8 @@ export default function Wishes() {
                       )}
                       <span>
                         {createWishMutation.isPending
-                          ? "Sedang Mengirim..."
-                          : "Kirimkan Doa"}
+                          ? "Enviando..."
+                          : "Enviar Mensaje"}
                       </span>
                     </motion.button>
                   </div>

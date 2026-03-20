@@ -1,6 +1,7 @@
 import Hero from "@/features/invitation/components/hero";
 import { Events } from "@/features/events";
-import { Location } from "@/features/location";
+import ImmersionGallery from "./immersion-gallery";
+import { Location, VenuePhotos } from "@/features/location";
 import { Wishes } from "@/features/wishes";
 import { Gifts } from "@/features/gifts";
 
@@ -9,8 +10,10 @@ export default function MainContent() {
   return (
     <>
       <Hero />
+      <ImmersionGallery />
       <Events />
       <Location />
+      <VenuePhotos />
       <Gifts />
       <Wishes />
     </>

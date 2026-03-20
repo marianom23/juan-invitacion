@@ -18,7 +18,7 @@
 import { useState, lazy, Suspense } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import { useInvitation } from "@/features/invitation";
 import { useAudio } from "@/hooks/use-audio";
 import staticConfig from "@/config/config";
@@ -74,13 +74,10 @@ function App() {
   // Show loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 to-pink-50">
-        <div className="text-center">
-          <Heart
-            className="h-12 w-12 text-rose-500 mx-auto mb-4 animate-pulse"
-            fill="currentColor"
-          />
-          <p className="text-gray-600">Memuat undangan...</p>
+      <div className="min-h-screen flex items-center justify-center bg-rose-50/30">
+        <div className="flex flex-col items-center space-y-4">
+          <Loader2 className="w-8 h-8 text-rose-500 animate-spin" />
+          <p className="text-gray-600">Cargando la invitación...</p>
         </div>
       </div>
     );
@@ -89,15 +86,17 @@ function App() {
   // Show error state
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 to-pink-50">
-        <div className="text-center max-w-md mx-auto p-6">
-          <div className="text-rose-500 text-6xl mb-4">!</div>
-          <h1 className="text-2xl font-serif text-gray-800 mb-2">
-            Undangan Tidak Ditemukan
-          </h1>
-          <p className="text-gray-600 mb-4">{error}</p>
+      <div className="min-h-screen flex items-center justify-center bg-rose-50/30">
+        <div className="text-center space-y-4 p-8 bg-white rounded-2xl shadow-xl max-w-md w-full mx-4">
+          <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto">
+            <span className="text-2xl text-rose-500">?</span>
+          </div>
+          <h2 className="text-2xl font-serif text-gray-800">
+            Invitación No Encontrada
+          </h2>
+          <p className="text-gray-600 text-sm">{error}</p>
           <p className="text-sm text-gray-500">
-            Silakan periksa URL Anda atau hubungi penyelenggara.
+            Por favor, verifica tu URL o contacta al organizador.
           </p>
         </div>
       </div>
@@ -152,7 +151,7 @@ function App() {
                 className="h-12 w-12 text-rose-500 mx-auto mb-4 animate-pulse"
                 fill="currentColor"
               />
-              <p className="text-gray-600">Memuat...</p>
+              <p className="text-gray-600">Cargando...</p>
             </div>
           </div>
         }

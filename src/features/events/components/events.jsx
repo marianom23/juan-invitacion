@@ -9,7 +9,10 @@ export default function Events() {
   return (
     <>
       {/* Event Section */}
-      <section id="event" className="min-h-screen relative overflow-hidden">
+      <section
+        id="event"
+        className="min-h-screen relative overflow-hidden bg-transparent"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -30,9 +33,9 @@ export default function Events() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="inline-block text-rose-500 font-medium mb-2"
+              className="inline-block text-emerald-500 font-medium mb-2"
             >
-              Catat Tanggal Penting Ini
+              Guarda esta Fecha Importante
             </motion.span>
 
             <motion.h2
@@ -42,7 +45,7 @@ export default function Events() {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-serif text-gray-800 leading-tight"
             >
-              Rangkaian Acara Pernikahan
+              Eventos de la Boda
             </motion.h2>
 
             <motion.p
@@ -52,8 +55,8 @@ export default function Events() {
               transition={{ delay: 0.4 }}
               className="text-gray-500 max-w-md mx-auto"
             >
-              Kami Mengundang Anda untuk Merayakan Hari Istimewa Sebagai Awal
-              Perjalanan Cinta Kami
+              Te invitamos a celebrar con nosotros este día tan especial y el
+              inicio de nuestro viaje de amor.
             </motion.p>
 
             {/* Decorative Line */}
@@ -64,11 +67,11 @@ export default function Events() {
               transition={{ delay: 0.5 }}
               className="flex items-center justify-center gap-4 mt-6"
             >
-              <div className="h-[1px] w-12 bg-rose-200" />
-              <div className="text-rose-400">
+              <div className="h-[1px] w-12 bg-emerald-200" />
+              <div className="text-emerald-600">
                 <Heart className="w-4 h-4" fill="currentColor" />
               </div>
-              <div className="h-[1px] w-12 bg-rose-200" />
+              <div className="h-[1px] w-12 bg-emerald-200" />
             </motion.div>
           </motion.div>
 
