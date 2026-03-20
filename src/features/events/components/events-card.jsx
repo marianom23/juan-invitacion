@@ -160,8 +160,7 @@ END:VCALENDAR`;
           <div className="flex items-center space-x-3">
             <Clock className="w-5 h-5 text-emerald-500" />
             <span>
-              {eventData.startTime?.substring(0, 5) || eventData.startTime} -{" "}
-              {eventData.endTime?.substring(0, 5) || eventData.endTime} hs
+              {eventData.startTime?.substring(0, 5) || eventData.startTime} hs
             </span>
           </div>
           <div className="flex items-center space-x-3">

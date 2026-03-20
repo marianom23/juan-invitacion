@@ -73,49 +73,52 @@ export default function Hero() {
     seconds: 0,
   });
 
-  const calculateTimeTogether = useCallback(() => {
-    if (!config.anniversaryDate) return;
+  const calculateCountdown = useCallback(() => {
+    if (!config || !config.date) return;
 
-    const start = new Date(config.anniversaryDate);
+    const timeStr = config.time || "18:00";
+    const targetDate = new Date(`${config.date}T${timeStr}`);
     const now = new Date();
+    const difference = targetDate - now;
 
-    let years = now.getFullYear() - start.getFullYear();
-    let months = now.getMonth() - start.getMonth();
-    let days = now.getDate() - start.getDate();
-    let hours = now.getHours() - start.getHours();
-    let minutes = now.getMinutes() - start.getMinutes();
-    let seconds = now.getSeconds() - start.getSeconds();
-
-    if (seconds < 0) {
-      minutes--;
-      seconds += 60;
-    }
-    if (minutes < 0) {
-      hours--;
-      minutes += 60;
-    }
-    if (hours < 0) {
-      days--;
-      hours += 24;
-    }
-    if (days < 0) {
-      months--;
-      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-      days += prevMonth.getDate();
-    }
-    if (months < 0) {
-      years--;
-      months += 12;
+    if (difference <= 0) {
+      setTimeTogether({
+        years: 0,
+        months: 0,
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      });
+      return;
     }
 
-    setTimeTogether({ years, months, days, hours, minutes, seconds });
-  }, [config.anniversaryDate]);
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    );
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    // Using months calculation for better readability
+    const months = Math.floor(days / 30);
+    const actualDays = days % 30;
+
+    setTimeTogether({
+      years: 0,
+      months,
+      days: actualDays,
+      hours,
+      minutes,
+      seconds,
+    });
+  }, [config]);
 
   useEffect(() => {
-    calculateTimeTogether();
-    const timer = setInterval(calculateTimeTogether, 1000);
+    calculateCountdown();
+    const timer = setInterval(calculateCountdown, 1000);
     return () => clearInterval(timer);
-  }, [calculateTimeTogether]);
+  }, [calculateCountdown]);
 
   useEffect(() => {
     const storedGuestName = getGuestName();
@@ -164,19 +167,21 @@ export default function Hero() {
               className="space-y-3"
             >
               <div className="text-gray-500 font-serif italic text-lg sm:text-xl tracking-wide max-w-md mx-auto leading-relaxed">
-                <span>Después de {timeTogether.years} años, </span>
-                <span>{timeTogether.months} meses, </span>
-                <span>{timeTogether.days} días, </span>
-                <span className="inline-block min-w-[3ch]">
-                  {timeTogether.hours} hr,{" "}
-                </span>
+                <span>Faltan </span>
+                {timeTogether.months > 0 && (
+                  <span>{timeTogether.months} meses, </span>
+                )}
+                <span>{timeTogether.days} días</span>
+                {timeTogether.hours > 0 ? (
+                  <>
+                    <span>, {timeTogether.hours} hr </span>
+                    <span className="text-gray-400 mx-1">y </span>
+                  </>
+                ) : (
+                  <span className="text-gray-400 mx-1"> y </span>
+                )}
                 <span className="inline-block min-w-[3ch] text-emerald-800 font-medium">
-                  {" "}
-                  {timeTogether.minutes} min{" "}
-                </span>
-                <span className="text-gray-400 mx-1">y </span>
-                <span className="inline-block min-w-[3ch] text-emerald-700 font-bold tabular-nums">
-                  {timeTogether.seconds} seg
+                  {timeTogether.minutes} min
                 </span>
               </div>
               <p className="text-emerald-800 font-serif italic text-2xl sm:text-3xl tracking-widest uppercase">

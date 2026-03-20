@@ -446,6 +446,15 @@ export default function Wishes() {
             ) : (
               <form onSubmit={handleSubmitWish} className="relative">
                 <div className="backdrop-blur-sm bg-white/80 p-6 rounded-2xl border border-emerald-100/50 shadow-lg">
+                  {/* Deadline Reminder */}
+                  <div className="mb-6 p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 flex items-center gap-3">
+                    <AlertCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+                    <p className="text-emerald-800 text-sm font-medium italic">
+                      Por favor, confirma tu asistencia con al menos un mes y
+                      medio de antelación. ¡Los esperamos! ✨
+                    </p>
+                  </div>
+
                   {/* Error Message */}
                   <AnimatePresence>
                     {errorMessage && (

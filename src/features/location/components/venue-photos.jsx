@@ -82,7 +82,7 @@ const VenuePhotos = () => {
         transition={{ delay: 0.5 }}
         className="text-center text-sm text-gray-400 mt-6 italic"
       >
-        Deslizá para ver más →
+        Toca para ver más →
       </motion.p>
     </section>
   );

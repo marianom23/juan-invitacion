@@ -16,7 +16,7 @@ const config = {
     // Wedding date (format: YYYY-MM-DD)
     date: "2026-12-06",
     // Wedding time
-    time: "18",
+    time: "18:00",
     // Relationship start date (for the counter)
     anniversaryDate: "2007-09-14T18:00:00",
     // List of venues (Church, Salon, etc.)
@@ -119,9 +119,9 @@ const config = {
     // Background music settings
     audio: {
       // Music file (choose one or replace with your own file)
-      src: "/audio/fulfilling-humming.mp3", // or /audio/nature-sound.mp3
+      src: "/audio/Perfect-(Mr-Jat.in).mp3",
       // Music title to display
-      title: "Fulfilling Humming", // or Nature Sound
+      title: "Perfect - Ed Sheeran",
       // Whether music plays automatically when website opens
       autoplay: true,
       // Whether music repeats continuously
