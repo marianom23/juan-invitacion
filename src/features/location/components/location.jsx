@@ -27,7 +27,7 @@ export default function Location() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               viewport={{ once: true }}
-              className="inline-block text-emerald-500 font-medium"
+              className="inline-block text-amber-500 font-medium"
             >
               Ubicación del Evento
             </motion.span>
@@ -50,9 +50,9 @@ export default function Location() {
               viewport={{ once: true }}
               className="flex items-center justify-center gap-4 pt-4"
             >
-              <div className="h-[1px] w-12 bg-emerald-200" />
-              <MapPin className="w-5 h-5 text-emerald-600" />
-              <div className="h-[1px] w-12 bg-emerald-200" />
+              <div className="h-[1px] w-12 bg-amber-200" />
+              <MapPin className="w-5 h-5 text-amber-800" />
+              <div className="h-[1px] w-12 bg-amber-200" />
             </motion.div>
           </motion.div>
 
@@ -68,8 +68,8 @@ export default function Location() {
                   viewport={{ once: true }}
                   className="space-y-6"
                 >
-                  <div className="bg-white/70 backdrop-blur-md rounded-2xl p-8 shadow-sm border border-emerald-50/50">
-                    <span className="text-emerald-500 font-medium text-sm mb-2 block uppercase tracking-wider">
+                  <div className="bg-white/70 backdrop-blur-md rounded-2xl p-8 shadow-sm border border-amber-50/50">
+                    <span className="text-amber-500 font-medium text-sm mb-2 block uppercase tracking-wider">
                       {venue.name}
                     </span>
                     <h3 className="text-2xl font-serif text-gray-800 mb-6">
@@ -78,19 +78,19 @@ export default function Location() {
 
                     <div className="space-y-4">
                       <div className="flex items-start space-x-4">
-                        <MapPin className="w-5 h-5 text-emerald-500 mt-1" />
+                        <MapPin className="w-5 h-5 text-amber-500 mt-1" />
                         <p className="text-gray-600 flex-1">{venue.address}</p>
                       </div>
 
                       <div className="flex items-center space-x-4">
-                        <CalendarCheck className="w-5 h-5 text-emerald-500" />
+                        <CalendarCheck className="w-5 h-5 text-amber-500" />
                         <p className="text-gray-600">
                           {formatEventDate(config.date)}
                         </p>
                       </div>
 
                       <div className="flex items-center space-x-4">
-                        <Clock className="w-5 h-5 text-emerald-500" />
+                        <Clock className="w-5 h-5 text-amber-500" />
                         <p className="text-gray-600">{venue.time}</p>
                       </div>
 
@@ -140,3 +140,4 @@ export default function Location() {
     </>
   );
 }
+

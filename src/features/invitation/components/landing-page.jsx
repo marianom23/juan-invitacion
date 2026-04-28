@@ -14,8 +14,8 @@ const LandingPage = ({ onOpenInvitation }) => {
       className="min-h-screen relative overflow-hidden"
     >
       {/* Decorative Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-emerald-50/30 to-white" />
-      <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-emerald-100/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-amber-50/30 to-white" />
+      <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-amber-100/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-pink-100/20 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
 
       {/* Main Content */}
@@ -27,12 +27,12 @@ const LandingPage = ({ onOpenInvitation }) => {
           className="w-full max-w-md"
         >
           {/* Card Container */}
-          <div className="backdrop-blur-sm bg-white/50 p-6 sm:p-8 md:p-10 rounded-2xl border border-emerald-100/50 shadow-xl">
+          <div className="backdrop-blur-sm bg-white/50 p-6 sm:p-8 md:p-10 rounded-2xl border border-amber-100/50 shadow-xl">
             {/* Top Decorative Line */}
             <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
-              <div className="h-px w-12 sm:w-16 bg-emerald-200/50" />
-              <div className="w-2 h-2 rounded-full bg-emerald-300" />
-              <div className="h-px w-12 sm:w-16 bg-emerald-200/50" />
+              <div className="h-px w-12 sm:w-16 bg-amber-200/50" />
+              <div className="w-2 h-2 rounded-full bg-amber-300" />
+              <div className="h-px w-12 sm:w-16 bg-amber-200/50" />
             </div>
 
             {/* Date and Time */}
@@ -43,14 +43,14 @@ const LandingPage = ({ onOpenInvitation }) => {
               className="flex flex-col gap-4 mb-6 sm:mb-8 items-center"
             >
               <div className="inline-flex flex-col items-center space-y-1 bg-white/80 px-4 sm:px-6 py-2 sm:py-3 rounded-xl">
-                <Calendar className="w-5 h-5 text-emerald-600" />
+                <Calendar className="w-5 h-5 text-amber-800" />
                 <p className="text-gray-700 font-medium">
                   {formatEventDate(config.date)}
                 </p>
               </div>
 
               <div className="inline-flex flex-col items-center space-y-1 bg-white/80 px-4 sm:px-6 py-2 sm:py-3 rounded-xl">
-                <Clock className="w-5 h-5 text-emerald-600" />
+                <Clock className="w-5 h-5 text-amber-800" />
                 <p className="text-gray-700 font-medium">{config.time}</p>
               </div>
             </motion.div>
@@ -63,14 +63,14 @@ const LandingPage = ({ onOpenInvitation }) => {
               className="text-center space-y-6"
             >
               <div className="space-y-4">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-emerald-800 leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-amber-950 leading-tight">
                   {config.groomName}
-                  <span className="text-emerald-600 font-script mx-2 sm:mx-3">
+                  <span className="text-amber-800 font-script mx-2 sm:mx-3">
                     &
                   </span>
                   {config.brideName}
                 </h1>
-                <div className="h-px w-16 sm:w-24 mx-auto bg-emerald-200" />
+                <div className="h-px w-16 sm:w-24 mx-auto bg-amber-200" />
               </div>
 
               {/* New Invitation Text */}
@@ -97,7 +97,7 @@ const LandingPage = ({ onOpenInvitation }) => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onOpenInvitation}
-                className="group relative w-full bg-emerald-500 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-xl font-medium shadow-lg hover:bg-emerald-800 transition-all duration-200"
+                className="group relative w-full bg-amber-500 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-xl font-medium shadow-lg hover:bg-amber-950 transition-all duration-200"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   <span>Abrir Invitación</span>
@@ -108,7 +108,7 @@ const LandingPage = ({ onOpenInvitation }) => {
                     →
                   </motion.span>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-800 to-emerald-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-950 to-amber-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               </motion.button>
             </motion.div>
           </div>
@@ -119,3 +119,4 @@ const LandingPage = ({ onOpenInvitation }) => {
 };
 
 export default LandingPage;
+

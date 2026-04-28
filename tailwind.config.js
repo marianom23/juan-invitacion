@@ -17,9 +17,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        serif: ["Playfair Display", "serif"],
-        cursive: ["Great Vibes", "cursive"],
-        script: ["Alex Brush", "cursive"],
+        serif: ["Cormorant Garamond", "Playfair Display", "serif"],
+        cursive: ["Imperial Script", "cursive"],
+        script: ["Imperial Script", "cursive"],
         accent: ["Cinzel Decorative", "serif"],
       },
       colors: {

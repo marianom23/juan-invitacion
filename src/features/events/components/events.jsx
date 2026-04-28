@@ -33,7 +33,7 @@ export default function Events() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="inline-block text-emerald-500 font-medium mb-2"
+              className="inline-block text-amber-500 font-medium mb-2"
             >
               Guarda esta Fecha Importante
             </motion.span>
@@ -67,11 +67,11 @@ export default function Events() {
               transition={{ delay: 0.5 }}
               className="flex items-center justify-center gap-4 mt-6"
             >
-              <div className="h-[1px] w-12 bg-emerald-200" />
-              <div className="text-emerald-600">
+              <div className="h-[1px] w-12 bg-amber-200" />
+              <div className="text-amber-800">
                 <Heart className="w-4 h-4" fill="currentColor" />
               </div>
-              <div className="h-[1px] w-12 bg-emerald-200" />
+              <div className="h-[1px] w-12 bg-amber-200" />
             </motion.div>
           </motion.div>
 
@@ -90,3 +90,4 @@ export default function Events() {
     </>
   );
 }
+

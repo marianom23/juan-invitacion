@@ -42,12 +42,12 @@ const Layout = ({ children, audioControls }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Globally Fixed & Rotated Watercolor Background */}
-        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] h-full z-0 pointer-events-none overflow-hidden bg-white">
+        {/* Globally Fixed Handmade Paper Background */}
+        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] h-full z-0 pointer-events-none overflow-hidden bg-[#f2eadc]">
           <div
             className="absolute top-1/2 left-1/2"
             style={{
-              backgroundImage: `url('/images/AdobeStock_1562233056.jpeg')`,
+              backgroundImage: `url('/images/papiro.jpg')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100vh",
@@ -67,15 +67,15 @@ const Layout = ({ children, audioControls }) => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggle}
-              className="fixed top-4 right-4 z-50 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg border border-emerald-100/50"
+              className="fixed top-4 right-4 z-50 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg border border-amber-100/50"
             >
               {isPlaying ? (
                 <div className="relative">
-                  <PauseCircle className="w-6 h-6 text-emerald-700" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                  <PauseCircle className="w-6 h-6 text-amber-900" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
                 </div>
               ) : (
-                <PlayCircle className="w-6 h-6 text-emerald-700" />
+                <PlayCircle className="w-6 h-6 text-amber-900" />
               )}
             </motion.button>
           )}
@@ -109,3 +109,4 @@ const Layout = ({ children, audioControls }) => {
 };
 
 export default Layout;
+

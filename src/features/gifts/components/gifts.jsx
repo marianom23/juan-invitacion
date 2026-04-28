@@ -42,7 +42,7 @@ export default function Gifts() {
               initial={{ opacity: 0, y: 10 }}
               animate={hasAnimated ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 }}
-              className="inline-block text-emerald-500 font-medium"
+              className="inline-block text-amber-500 font-medium"
             >
               Regalo de Bodas
             </motion.span>
@@ -63,9 +63,9 @@ export default function Gifts() {
               transition={{ delay: 0.4 }}
               className="flex items-center justify-center gap-4 pt-4"
             >
-              <div className="h-[1px] w-12 bg-emerald-200" />
-              <Gift className="w-5 h-5 text-emerald-600" />
-              <div className="h-[1px] w-12 bg-emerald-200" />
+              <div className="h-[1px] w-12 bg-amber-200" />
+              <Gift className="w-5 h-5 text-amber-800" />
+              <div className="h-[1px] w-12 bg-amber-200" />
             </motion.div>
 
             {/* Message Container */}
@@ -84,7 +84,7 @@ export default function Gifts() {
 
               {/* Gratitude Message */}
               <div className="space-y-2 pt-2">
-                <p className="text-emerald-800 font-serif text-xl italic">
+                <p className="text-amber-950 font-serif text-xl italic">
                   &ldquo;¡Gracias por acompañarnos!&rdquo;
                 </p>
               </div>
@@ -97,9 +97,9 @@ export default function Gifts() {
               transition={{ delay: 0.6 }}
               className="flex items-center justify-center gap-3 pt-4"
             >
-              <div className="h-px w-8 bg-emerald-200/50" />
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-300" />
-              <div className="h-px w-8 bg-emerald-200/50" />
+              <div className="h-px w-8 bg-amber-200/50" />
+              <div className="w-1.5 h-1.5 rounded-full bg-amber-300" />
+              <div className="h-px w-8 bg-amber-200/50" />
             </motion.div>
           </motion.div>
 
@@ -113,14 +113,12 @@ export default function Gifts() {
                 transition={{ delay: 0.2 * index + 0.7 }}
                 className="relative group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-100/5 to-pink-100/5 rounded-2xl transform transition-transform group-hover:scale-105 duration-300" />
-                <div className="relative backdrop-blur-md bg-white/70 p-6 rounded-2xl border border-emerald-50/50 shadow-lg">
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-100/5 to-pink-100/5 rounded-2xl transform transition-transform group-hover:scale-105 duration-300" />
+                <div className="relative backdrop-blur-md bg-white/70 p-6 rounded-2xl border border-amber-50/50 shadow-lg">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-sm text-2xl">
-                        {account.flag || (
-                          <Building2 className="w-6 h-6 text-emerald-500" />
-                        )}
+                      <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-sm">
+                        <Building2 className="w-6 h-6 text-amber-700" />
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-800 flex items-center gap-2">
@@ -131,7 +129,7 @@ export default function Gifts() {
                         </p>
                       </div>
                     </div>
-                    <Wallet className="w-5 h-5 text-emerald-600" />
+                    <Wallet className="w-5 h-5 text-amber-800" />
                   </div>
 
                   <div className="mt-4 space-y-3">
@@ -155,7 +153,7 @@ export default function Gifts() {
                               `number-${index}`,
                             )
                           }
-                          className="flex items-center space-x-1 text-emerald-500 hover:text-emerald-800 shrink-0"
+                          className="flex items-center space-x-1 text-amber-500 hover:text-amber-950 shrink-0"
                         >
                           {copiedAccount === `number-${index}` ? (
                             <CheckCircle className="w-4 h-4" />
@@ -187,7 +185,7 @@ export default function Gifts() {
                             onClick={() =>
                               copyToClipboard(account.alias, `alias-${index}`)
                             }
-                            className="flex items-center space-x-1 text-emerald-500 hover:text-emerald-800 shrink-0"
+                            className="flex items-center space-x-1 text-amber-500 hover:text-amber-950 shrink-0"
                           >
                             {copiedAccount === `alias-${index}` ? (
                               <CheckCircle className="w-4 h-4" />
@@ -222,7 +220,7 @@ export default function Gifts() {
                                 onClick={() =>
                                   copyToClipboard(account.rut, `rut-${index}`)
                                 }
-                                className="flex items-center space-x-1 text-emerald-500 hover:text-emerald-800 shrink-0"
+                                className="flex items-center space-x-1 text-amber-500 hover:text-amber-950 shrink-0"
                               >
                                 {copiedAccount === `rut-${index}` ? (
                                   <CheckCircle className="w-4 h-4" />
@@ -262,3 +260,4 @@ export default function Gifts() {
     </>
   );
 }
+

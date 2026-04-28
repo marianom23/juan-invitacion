@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+﻿import { motion, AnimatePresence } from "framer-motion";
 import Confetti from "react-confetti";
 import Marquee from "@/components/ui/marquee";
 import {
@@ -82,8 +82,8 @@ export default function Wishes() {
 
   const options = [
     { value: "ATTENDING", label: "Sí, asistiré" },
-    { value: "NOT_ATTENDING", label: "No, no podré asistir" },
-    { value: "MAYBE", label: "Tal vez, confirmaré más tarde" },
+    { value: "NOT_ATTENDING", label: "No, no podrÃ© asistir" },
+    { value: "MAYBE", label: "Tal vez, confirmarÃ© mÃ¡s tarde" },
   ];
 
   // Fetch wishes using React Query
@@ -149,7 +149,7 @@ export default function Wishes() {
     if (!newWish.trim() || !guestName.trim()) return;
 
     if (!uid) {
-      setErrorMessage("Invitación no encontrada. Por favor revisa tu URL.");
+      setErrorMessage("InvitaciÃ³n no encontrada. Por favor revisa tu URL.");
       setTimeout(() => setErrorMessage(""), 5000);
       return;
     }
@@ -167,10 +167,10 @@ export default function Wishes() {
     const normalizedStatus = status?.toLowerCase();
     switch (normalizedStatus) {
       case "attending":
-        return <CheckCircle className="w-4 h-4 text-emerald-500" />;
+        return <CheckCircle className="w-4 h-4 text-amber-500" />;
       case "not_attending":
       case "not-attending":
-        return <XCircle className="w-4 h-4 text-emerald-500" />;
+        return <XCircle className="w-4 h-4 text-amber-500" />;
       case "maybe":
         return <HelpCircle className="w-4 h-4 text-amber-500" />;
       default:
@@ -196,9 +196,9 @@ export default function Wishes() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-block text-emerald-500 font-medium"
+              className="inline-block text-amber-500 font-medium"
             >
-              Envía tus mejores deseos y oraciones
+              EnvÃ­a tus mejores deseos y oraciones
             </motion.span>
 
             <motion.h2
@@ -217,9 +217,9 @@ export default function Wishes() {
               transition={{ delay: 0.4 }}
               className="flex items-center justify-center gap-4 pt-4"
             >
-              <div className="h-[1px] w-12 bg-emerald-200" />
-              <MessageCircle className="w-5 h-5 text-emerald-600" />
-              <div className="h-[1px] w-12 bg-emerald-200" />
+              <div className="h-[1px] w-12 bg-amber-200" />
+              <MessageCircle className="w-5 h-5 text-amber-800" />
+              <div className="h-[1px] w-12 bg-amber-200" />
             </motion.div>
           </motion.div>
 
@@ -227,14 +227,14 @@ export default function Wishes() {
           <div className="max-w-2xl mx-auto space-y-6">
             {isLoading && (
               <div className="flex justify-center items-center py-12">
-                <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+                <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
                 <span className="ml-3 text-gray-600">Cargando mensajes...</span>
               </div>
             )}
 
             {error && !isLoading && (
               <div className="text-center py-8">
-                <p className="text-emerald-800">{error}</p>
+                <p className="text-amber-950">{error}</p>
               </div>
             )}
 
@@ -267,15 +267,15 @@ export default function Wishes() {
                       whileTap={{ scale: 0.98 }}
                     >
                       {/* Background gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/60 to-pink-100/60 rounded-2xl transform transition-transform group-hover:scale-[1.02] duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-amber-100/60 to-pink-100/60 rounded-2xl transform transition-transform group-hover:scale-[1.02] duration-300" />
 
                       {/* Card content */}
-                      <div className="relative h-full backdrop-blur-md bg-white/70 p-4 rounded-2xl border border-emerald-50/40 shadow-md flex flex-col">
+                      <div className="relative h-full backdrop-blur-md bg-white/70 p-4 rounded-2xl border border-amber-50/40 shadow-md flex flex-col">
                         {/* Header */}
                         <div className="flex items-center space-x-3 mb-3">
                           {/* Avatar */}
                           <div className="flex-shrink-0">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-600 to-pink-500 flex items-center justify-center text-white text-sm font-semibold shadow-sm">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-800 to-pink-500 flex items-center justify-center text-white text-sm font-semibold shadow-sm">
                               {wish.name[0].toUpperCase()}
                             </div>
                           </div>
@@ -303,7 +303,7 @@ export default function Wishes() {
                           {/* New badge */}
                           {Date.now() - new Date(wish.created_at).getTime() <
                             3600000 && (
-                            <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-medium">
+                            <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-amber-100 text-amber-950 text-xs font-medium">
                               Nuevo
                             </span>
                           )}
@@ -345,11 +345,11 @@ export default function Wishes() {
                     className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
                   >
                     {/* Modal Header */}
-                    <div className="sticky top-0 bg-gradient-to-br from-emerald-50 to-pink-50 p-6 border-b border-emerald-100">
+                    <div className="sticky top-0 bg-gradient-to-br from-amber-50 to-pink-50 p-6 border-b border-amber-100">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
                           {/* Avatar */}
-                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-600 to-pink-500 flex items-center justify-center text-white text-2xl font-semibold shadow-lg">
+                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-800 to-pink-500 flex items-center justify-center text-white text-2xl font-semibold shadow-lg">
                             {selectedWish.name[0].toUpperCase()}
                           </div>
 
@@ -389,9 +389,9 @@ export default function Wishes() {
                             {selectedWish.attendance === "ATTENDING" &&
                               "Asistirá"}
                             {selectedWish.attendance === "NOT_ATTENDING" &&
-                              "No podrá asistir"}
+                              "No podrÃ¡ asistir"}
                             {selectedWish.attendance === "MAYBE" &&
-                              "Quizás asista"}
+                              "QuizÃ¡s asista"}
                           </span>
                         </div>
                       )}
@@ -410,7 +410,7 @@ export default function Wishes() {
                     <div className="sticky bottom-0 bg-gray-50 p-4 border-t border-gray-100 flex justify-end">
                       <button
                         onClick={() => setSelectedWish(null)}
-                        className="px-6 py-2 bg-emerald-500 hover:bg-emerald-800 text-white rounded-lg font-medium transition-colors"
+                        className="px-6 py-2 bg-amber-500 hover:bg-amber-950 text-white rounded-lg font-medium transition-colors"
                       >
                         Cerrar
                       </button>
@@ -429,9 +429,9 @@ export default function Wishes() {
             className="max-w-2xl mx-auto mt-12"
           >
             {hasSubmittedWish ? (
-              <div className="backdrop-blur-sm bg-white/80 p-8 rounded-2xl border border-emerald-100 shadow-lg text-center">
+              <div className="backdrop-blur-sm bg-white/80 p-8 rounded-2xl border border-amber-100 shadow-lg text-center">
                 <div className="flex flex-col items-center space-y-4">
-                  <CheckCircle className="w-16 h-16 text-emerald-500" />
+                  <CheckCircle className="w-16 h-16 text-amber-500" />
                   <h3 className="text-2xl font-serif text-gray-800">
                     ¡Gracias!
                   </h3>
@@ -445,13 +445,13 @@ export default function Wishes() {
               </div>
             ) : (
               <form onSubmit={handleSubmitWish} className="relative">
-                <div className="backdrop-blur-sm bg-white/80 p-6 rounded-2xl border border-emerald-100/50 shadow-lg">
+                <div className="backdrop-blur-sm bg-white/80 p-6 rounded-2xl border border-amber-100/50 shadow-lg">
                   {/* Deadline Reminder */}
-                  <div className="mb-6 p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 flex items-center gap-3">
-                    <AlertCircle className="w-5 h-5 text-emerald-600 shrink-0" />
-                    <p className="text-emerald-800 text-sm font-medium italic">
-                      Por favor, confirma tu asistencia con al menos un mes y
-                      medio de antelación. ¡Los esperamos! ✨
+                  <div className="mb-6 p-4 bg-amber-50/50 rounded-xl border border-amber-100 flex items-center gap-3">
+                    <AlertCircle className="w-5 h-5 text-amber-800 shrink-0" />
+                    <p className="text-amber-950 text-sm font-medium italic">
+                      Por favor, confirma tu asistencia con al menos un mes de
+                      antelación.
                     </p>
                   </div>
 
@@ -462,9 +462,9 @@ export default function Wishes() {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="mb-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start space-x-3"
+                        className="mb-4 p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-start space-x-3"
                       >
-                        <AlertCircle className="w-5 h-5 text-emerald-800 flex-shrink-0 mt-0.5" />
+                        <AlertCircle className="w-5 h-5 text-amber-950 flex-shrink-0 mt-0.5" />
                         <div className="flex-1">
                           <p className="text-sm text-rose-800 font-medium">
                             {errorMessage}
@@ -473,7 +473,7 @@ export default function Wishes() {
                         <button
                           type="button"
                           onClick={() => setErrorMessage("")}
-                          className="text-emerald-600 hover:text-emerald-800 transition-colors"
+                          className="text-amber-800 hover:text-amber-950 transition-colors"
                         >
                           <XCircle className="w-4 h-4" />
                         </button>
@@ -503,7 +503,7 @@ export default function Wishes() {
                         className={`w-full px-4 py-2.5 rounded-xl border transition-all duration-200 text-gray-700 placeholder-gray-400 ${
                           isNameFromInvitation
                             ? "bg-gray-100 border-gray-200 cursor-not-allowed opacity-75"
-                            : "bg-white/50 border-emerald-100 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50"
+                            : "bg-white/50 border-amber-100 focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50"
                         }`}
                         required
                       />
@@ -544,7 +544,7 @@ export default function Wishes() {
                         aria-label="Selecciona estado de asistencia"
                         aria-expanded={isOpen}
                         aria-controls="attendance-dropdown"
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/50 border border-emerald-100 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 transition-all duration-200 text-left flex items-center justify-between"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/50 border border-amber-100 focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 transition-all duration-200 text-left flex items-center justify-between"
                       >
                         <span
                           className={
@@ -572,7 +572,7 @@ export default function Wishes() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="absolute z-10 w-full mt-1 bg-white rounded-xl shadow-lg border border-emerald-100 overflow-hidden"
+                            className="absolute z-10 w-full mt-1 bg-white rounded-xl shadow-lg border border-amber-100 overflow-hidden"
                           >
                             {options.map((option) => (
                               <motion.button
@@ -588,8 +588,8 @@ export default function Wishes() {
                                 className={`w-full px-4 py-2.5 text-left transition-colors
                                         ${
                                           attendance === option.value
-                                            ? "bg-emerald-50 text-emerald-800"
-                                            : "text-gray-700 hover:bg-emerald-50"
+                                            ? "bg-amber-50 text-amber-950"
+                                            : "text-gray-700 hover:bg-amber-50"
                                         }`}
                               >
                                 {option.label}
@@ -611,7 +611,7 @@ export default function Wishes() {
                         placeholder="Escribe tus deseos u oraciones para los novios..."
                         value={newWish}
                         onChange={(e) => setNewWish(e.target.value)}
-                        className="w-full h-32 p-4 rounded-xl bg-white/50 border border-emerald-100 focus:border-emerald-300 focus:ring focus:ring-emerald-200 focus:ring-opacity-50 resize-none transition-all duration-200"
+                        className="w-full h-32 p-4 rounded-xl bg-white/50 border border-amber-100 focus:border-amber-300 focus:ring focus:ring-amber-200 focus:ring-opacity-50 resize-none transition-all duration-200"
                         required
                       />
                     </div>
@@ -630,7 +630,7 @@ export default function Wishes() {
                     ${
                       createWishMutation.isPending
                         ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-emerald-500 hover:bg-emerald-800"
+                        : "bg-amber-500 hover:bg-amber-950"
                     }`}
                     >
                       {createWishMutation.isPending ? (
@@ -654,3 +654,5 @@ export default function Wishes() {
     </>
   );
 }
+
+
